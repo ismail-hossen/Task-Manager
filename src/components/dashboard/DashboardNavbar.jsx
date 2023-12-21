@@ -1,4 +1,8 @@
+import useAuthContext from "../../hooks/useAuthContext";
+
 const DashboardNavbar = () => {
+  const { logout, user } = useAuthContext();
+
   return (
     <div className="navbar">
       <div className="w-full flex justify-end gap-4">
@@ -17,8 +21,11 @@ const DashboardNavbar = () => {
           >
             <div className="w-10 rounded-full">
               <img
-                alt="Tailwind CSS Navbar component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                alt={user?.displayName}
+                src={
+                  user?.photoURL ||
+                  "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                }
               />
             </div>
           </div>
@@ -27,16 +34,13 @@ const DashboardNavbar = () => {
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
           >
             <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
+              <a className="justify-between">Profile</a>
             </li>
             <li>
               <a>Settings</a>
             </li>
             <li>
-              <a>Logout</a>
+              <span onClick={() => logout()}>Logout</span>
             </li>
           </ul>
         </div>
