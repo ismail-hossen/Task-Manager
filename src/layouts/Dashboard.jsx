@@ -1,14 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "../components/dashboard/Sidebar";
 import DashboardNavbar from "../components/dashboard/DashboardNavbar";
+import Tasks from "../pages/dashboard/Tasks";
 
 const Dashboard = () => {
+  const location = useLocation();
   return (
-    <div className="relative min-h-screen md:flex">
+    <div className="relative lg:flex">
       <Sidebar />
-      <div className="flex-1 md:ml-80 md:mr-10">
+      <div className="flex-1 my-5 lg:ml-96 lg:mr-10">
         <DashboardNavbar />
-        <Outlet />
+        {location?.pathname == "/dashboard" ? <Tasks /> : <Outlet />}
       </div>
     </div>
   );
