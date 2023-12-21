@@ -1,6 +1,18 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
+  const NavItems = () => (
+    <>
+      <li>
+        <Link to="/home">Home</Link>
+      </li>
+      <li>
+        <a>About</a>
+      </li>
+    </>
+  );
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-sky-600">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -23,28 +35,25 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li>
-              <a>Home</a>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+            <NavItems />
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Task Manager</a>
+        <Link to="/" className="btn btn-ghost text-2xl text-[#A9D2FE]">
+          Task Manager
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>Home</a>
-          </li>
-          <li>
-            <a>Item 3</a>
-          </li>
+        <ul className="menu menu-horizontal px-1 text-white text-xl">
+          <NavItems />
         </ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
+      <div className="navbar-end gap-1">
+        <Link to="/register" className="btn">
+          Register
+        </Link>
+        <Link to="/login" className="btn">
+          Login
+        </Link>
       </div>
     </div>
   );
