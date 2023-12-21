@@ -48,8 +48,8 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end gap-1">
-        <Link to="/register" className="btn">
-          Register
+        <Link to="/signup" className="btn">
+          SignUp
         </Link>
         <Link to="/login" className="btn">
           Login
