@@ -1,9 +1,10 @@
 import { useDrop } from "react-dnd";
 import TaskCard from "./TaskCard";
-import axios from "axios";
 import toast from "react-hot-toast";
+import useAxios from "../../hooks/useAxios";
 
 const Stage = ({ stage, tasks, setRefetch }) => {
+  const axiosPublic = useAxios();
   const [, drop] = useDrop(() => ({
     accept: "task",
     drop: (item) => moveItem(item),
@@ -13,8 +14,8 @@ const Stage = ({ stage, tasks, setRefetch }) => {
   }));
 
   const moveItem = (item) => {
-    axios
-      .patch(`http://localhost:4000/update-task/${item?._id}`, {
+    axiosPublic
+      .patch(`/update-task/${item?._id}`, {
         stage: stage.toLowerCase(),
       })
       .then((res) => {

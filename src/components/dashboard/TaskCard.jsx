@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { useDrag } from "react-dnd";
 import toast from "react-hot-toast";
@@ -6,11 +5,13 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import Modal from "../Modal";
 import UpdateTaskForm from "./UpdateFormTask";
+import useAxios from "../../hooks/useAxios";
 
 const TaskCard = ({ task, setRefetch }) => {
   const { title, description, _id } = task || {};
   const [showActionBtn, setShowActionBtn] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const axiosPublic = useAxios();
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "task",
     item: task,
@@ -20,7 +21,7 @@ const TaskCard = ({ task, setRefetch }) => {
   }));
 
   const handledDelete = (id) => {
-    axios.delete(`http://localhost:4000/delete-task/${id}`).then((res) => {
+    axiosPublic.delete(`/delete-task/${id}`).then((res) => {
       if (res?.data?.deletedCount > 0) {
         setRefetch(true);
         toast.success("Delete Success!");

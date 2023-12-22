@@ -6,7 +6,7 @@ import Modal from "../../components/Modal";
 import CreateTaskForm from "../../components/dashboard/CreateTaskForm";
 import { useEffect, useState } from "react";
 import useAuthContext from "../../hooks/useAuthContext";
-import axios from "axios";
+import useAxios from "../../hooks/useAxios";
 
 const Tasks = () => {
   const stages = ["Todo", "Ongoing", "Completed"];
@@ -14,11 +14,12 @@ const Tasks = () => {
   const [tasks, setTasks] = useState([]);
   const [refetch, setRefetch] = useState([]);
   const { user } = useAuthContext();
+  const axiosPublic = useAxios();
 
   useEffect(() => {
     if (refetch) {
       setRefetch(false);
-      axios.get(`http://localhost:4000/tasks/${user?.email}`).then((res) => {
+      axiosPublic.get(`/tasks/${user?.email}`).then((res) => {
         if (res?.data) {
           setTasks(res.data);
         }

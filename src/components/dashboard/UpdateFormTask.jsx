@@ -1,18 +1,16 @@
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import useAxios from "../../hooks/useAxios";
 
 const UpdateTaskForm = ({ onClose, setRefetch, updateTask }) => {
   const { title, description, _id, priority, deadline } = updateTask || {};
   const { register, handleSubmit } = useForm();
+  const axiosPublic = useAxios();
 
   const onSubmit = async (data) => {
     try {
       console.log(data);
-      const addedTask = await axios.patch(
-        `http://localhost:4000/update-task/${_id}`,
-        data
-      );
+      const addedTask = await axiosPublic.patch(`/update-task/${_id}`, data);
       if (addedTask?.data?.acknowledged) {
         toast.success("Successfully updated task!");
         onClose();

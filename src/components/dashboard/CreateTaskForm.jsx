@@ -1,11 +1,12 @@
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import useAuthContext from "../../hooks/useAuthContext";
 import toast from "react-hot-toast";
+import useAxios from "../../hooks/useAxios";
 
 const CreateTaskForm = ({ onClose, setRefetch }) => {
   const { user } = useAuthContext();
   const { register, handleSubmit, reset } = useForm();
+  const axiosPublic = useAxios();
 
   const onSubmit = async (data) => {
     try {
@@ -14,10 +15,7 @@ const CreateTaskForm = ({ onClose, setRefetch }) => {
         stage: "todo",
         email: user?.email,
       };
-      const addedTask = await axios.post(
-        "http://localhost:4000/create-task",
-        task
-      );
+      const addedTask = await axiosPublic.post("/create-task", task);
       if (addedTask?.data?.acknowledged) {
         toast.success("Successfully created task!");
         reset();
