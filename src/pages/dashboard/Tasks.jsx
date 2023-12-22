@@ -4,10 +4,23 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Modal from "../../components/Modal";
 import CreateTaskForm from "../../components/dashboard/CreateTaskForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useAuthContext from "../../hooks/useAuthContext";
+import axios from "axios";
 
 const Tasks = () => {
+  const stages = ["Todo", "Ongoing", "Completed"];
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tasks, setTasks] = useState([]);
+  const { user, loading } = useAuthContext();
+
+  useEffect(() => {
+    axios.get(`http://localhost:4000/tasks/${user?.email}`).then((res) => {
+      if (res?.data) {
+        setTasks(res.data);
+      }
+    });
+  }, [user, loading]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -16,6 +29,14 @@ const Tasks = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const filteredTasks = (stage) => {
+    const data = tasks?.filter(
+      (t) => t.stage.toLowerCase() === stage.toLowerCase()
+    );
+    return data;
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
@@ -27,9 +48,9 @@ const Tasks = () => {
           </button>
         </div>
         <div className="flex justify-between mt-5 gap-4">
-          <Stage stage="Todo" />
-          <Stage stage="Ongoing" />
-          <Stage stage="Completed" />
+          {stages.map((stage) => (
+            <Stage key={stage} stage={stage} tasks={filteredTasks(stage)} />
+          ))}
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={closeModal} modalTitle="Create Task">

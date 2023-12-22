@@ -3,7 +3,8 @@ import { useDrag } from "react-dnd";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin2Line } from "react-icons/ri";
 
-const TaskCard = () => {
+const TaskCard = ({ task }) => {
+  const { title, description } = task || {};
   const [showActionBtn, setShowActionBtn] = useState(false);
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "card",
@@ -22,7 +23,9 @@ const TaskCard = () => {
     >
       <div className="card-body">
         <div className="flex items-center justify-between">
-          <h2 className="card-title">Card title!</h2>
+          <h2 className="card-title">
+            {title.length > 20 ? title.slice(0, 35) : title}
+          </h2>
           {showActionBtn && (
             <div className="flex gap-3">
               <button className="text-xl">
@@ -34,7 +37,9 @@ const TaskCard = () => {
             </div>
           )}
         </div>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <p>
+          {description.length > 80 ? description.slice(0, 80) : description}
+        </p>
       </div>
     </div>
   );
