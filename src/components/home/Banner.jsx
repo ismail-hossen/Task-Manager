@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 const Banner = () => {
   return (
     <div className="hero min-h-screen bg-[#A9D2FE]">
-      <div className="hero-content flex">
+      <div className="hero-content flex flex-col-reverse lg:flex-row">
         <div className="flex flex-col items-center justify-center text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4">
+          <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-4">
             Your Task Management Solution
           </h1>
           <p className="text-lg lg:text-xl text-white mb-6">
@@ -21,7 +21,7 @@ const Banner = () => {
         <div>
           <img
             src="https://img.freepik.com/free-psd/3d-rendering-graphic-design-element_23-2149412223.jpg?w=740&t=st=1703159794~exp=1703160394~hmac=8958dd158408cf3057c32db35584594ef79d043bfc94aa008c1f3fa3af613a78"
-            className="max-w-sm lg:max-w-2xl rounded-lg"
+            className="max-w-full lg:max-w-2xl rounded-lg"
           />
         </div>
       </div>

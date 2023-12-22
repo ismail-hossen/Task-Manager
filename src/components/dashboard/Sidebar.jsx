@@ -17,9 +17,9 @@ const Sidebar = () => {
       {/* Small Screen Navbar */}
       <div className="bg-sky-100 text-gray-800 flex justify-between md:hidden">
         <div>
-          <div className="block cursor-pointer p-4 font-bold">
+          <Link to="/" className="block cursor-pointer p-4 font-bold">
             <span>Task Manager</span>
-          </div>
+          </Link>
         </div>
 
         <button
@@ -31,11 +31,11 @@ const Sidebar = () => {
       </div>
       {/* Sidebar */}
       <div
-        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-base-200 w-80 space-y-6 px-10 py-5 absolute inset-y-0 left-0 transform ${
+        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-base-200 w-52 sm:w-64 md:w-72 lg:w-80 space-y-6 px-3 lg:px-10 py-5 absolute inset-y-0 left-0 transform ${
           isActive && "-translate-x-full"
         }  md:translate-x-0  transition duration-200 ease-in-out`}
       >
-        <div className="bg-sky-500 px-5 py-10 rounded-lg">
+        <div className="bg-sky-500 px-2 lg:px-5 py-5 lg:py-10 rounded-lg">
           <div>
             <Link to="/">
               <div className="w-full hidden md:flex px-4 py-2 shadow-sm rounded-lg justify-center items-center bg-sky-400 text-xl mx-auto text-white">

@@ -40,8 +40,8 @@ const Navbar = () => {
             <NavItems />
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-2xl text-[#A9D2FE]">
-          Task Manager
+        <Link to="/" className="lg:btn lg:btn-ghost lg:text-2xl">
+          <span className="text-[#A9D2FE]">Task Manager</span>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -51,15 +51,15 @@ const Navbar = () => {
       </div>
       <div className="navbar-end gap-1">
         {user ? (
-          <Link to="/dashboard" className="btn">
+          <Link to="/dashboard" className="btn btn-sm lg:btn-md">
             Dashboard
           </Link>
         ) : (
           <>
-            <Link to="/signup" className="btn">
+            <Link to="/signup" className="btn btn-sm lg:btn-md">
               SignUp
             </Link>
-            <Link to="/login" className="btn">
+            <Link to="/login" className="btn btn-sm lg:btn-md">
               Login
             </Link>
           </>
