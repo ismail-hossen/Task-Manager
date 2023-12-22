@@ -8,7 +8,7 @@ const Dashboard = () => {
   return (
     <div className="relative lg:flex">
       <Sidebar />
-      <div className="flex-1 my-5 lg:ml-96 lg:mr-10">
+      <div className="flex-1 my-5 lg:ml-96 lg:mr-16">
         <DashboardNavbar />
         {location?.pathname == "/dashboard" ? <Tasks /> : <Outlet />}
       </div>

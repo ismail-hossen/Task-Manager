@@ -1,11 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import useAuthContext from "../../hooks/useAuthContext";
 
 const DashboardNavbar = () => {
   const { logout, user } = useAuthContext();
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    logout().then(() => {
+      navigate("/");
+    });
+  };
 
   return (
     <div className="navbar">
-      <div className="w-full flex justify-end gap-4">
+      <div className="w-full flex justify-between">
         <div className="form-control">
           <input
             type="text"
@@ -13,7 +20,12 @@ const DashboardNavbar = () => {
             className="input input-bordered w-24 md:w-auto"
           />
         </div>
-        <div className="dropdown dropdown-end">
+        <div className="dropdown dropdown-end flex items-center">
+          <div>
+            <span className="text-xl font-semibold capitalize text-sky-500 mr-2">
+              {user?.displayName}
+            </span>
+          </div>
           <div
             tabIndex={0}
             role="button"
@@ -40,7 +52,7 @@ const DashboardNavbar = () => {
               <a>Settings</a>
             </li>
             <li>
-              <span onClick={() => logout()}>Logout</span>
+              <span onClick={logoutHandler}>Logout</span>
             </li>
           </ul>
         </div>
