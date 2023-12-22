@@ -12,15 +12,19 @@ const Tasks = () => {
   const stages = ["Todo", "Ongoing", "Completed"];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
-  const { user, loading } = useAuthContext();
+  const [refetch, setRefetch] = useState([]);
+  const { user } = useAuthContext();
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/tasks/${user?.email}`).then((res) => {
-      if (res?.data) {
-        setTasks(res.data);
-      }
-    });
-  }, [user, loading]);
+    if (refetch) {
+      setRefetch(false);
+      axios.get(`http://localhost:4000/tasks/${user?.email}`).then((res) => {
+        if (res?.data) {
+          setTasks(res.data);
+        }
+      });
+    }
+  }, [user, refetch]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -49,12 +53,17 @@ const Tasks = () => {
         </div>
         <div className="flex justify-between mt-5 gap-4">
           {stages.map((stage) => (
-            <Stage key={stage} stage={stage} tasks={filteredTasks(stage)} />
+            <Stage
+              key={stage}
+              stage={stage}
+              setRefetch={setRefetch}
+              tasks={filteredTasks(stage)}
+            />
           ))}
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={closeModal} modalTitle="Create Task">
-        <CreateTaskForm onClose={closeModal} />
+        <CreateTaskForm setRefetch={setRefetch} onClose={closeModal} />
       </Modal>
     </DndProvider>
   );

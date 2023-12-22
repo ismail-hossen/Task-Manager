@@ -3,12 +3,11 @@ import { useForm } from "react-hook-form";
 import useAuthContext from "../../hooks/useAuthContext";
 import toast from "react-hot-toast";
 
-const CreateTaskForm = ({ onClose }) => {
-  const { user, setLoading } = useAuthContext();
+const CreateTaskForm = ({ onClose, setRefetch }) => {
+  const { user } = useAuthContext();
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
-    setLoading(true);
     try {
       const task = {
         ...data,
@@ -23,12 +22,11 @@ const CreateTaskForm = ({ onClose }) => {
         toast.success("Successfully created task!");
         reset();
         onClose();
-        setLoading(true);
+        setRefetch(true);
       }
     } catch (error) {
       toast.error("Something went wrong!");
     }
-    setLoading(false);
   };
 
   return (

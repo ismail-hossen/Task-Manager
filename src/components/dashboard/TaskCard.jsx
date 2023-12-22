@@ -7,7 +7,8 @@ const TaskCard = ({ task }) => {
   const { title, description } = task || {};
   const [showActionBtn, setShowActionBtn] = useState(false);
   const [{ isDragging }, drag] = useDrag(() => ({
-    type: "card",
+    type: "task",
+    item: task,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
@@ -16,8 +17,9 @@ const TaskCard = ({ task }) => {
   return (
     <div
       ref={drag}
-      style={{ opacity: isDragging ? 0.5 : 1 }}
-      className="card hover:cursor-move bg-base-200 shadow-sm rounded-md"
+      className={`card hover:cursor-move bg-base-200 shadow-sm rounded-md ${
+        isDragging ? "opacity-100" : "opacity-100"
+      }`}
       onMouseEnter={() => setShowActionBtn(true)}
       onMouseLeave={() => setShowActionBtn(false)}
     >
